@@ -195,7 +195,7 @@
                             </div>
                         </div>
                     </div>
-                    <form action="https://formspree.io/f/xykljeoe" method="POST" class="contact-form">
+                    <form id="contactForm" action="https://formspree.io/f/xykljeoe" method="POST" class="contact-form" autocomplete="off">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Your Email" required>
     <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
@@ -222,6 +222,23 @@
                 navbar.classList.remove('active');
             });
         });
+        // Para ma-clear ang form kapag bumalik (Go Back) mula sa Formspree
+window.onpageshow = function(event) {
+    const theForm = document.getElementById('contactForm');
+    if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+        if (theForm) {
+            theForm.reset();
+        }
+    }
+};
+
+// I-reset din agad pagka-click ng submit button
+document.getElementById('contactForm').addEventListener('submit', function() {
+    const self = this;
+    setTimeout(function() {
+        self.reset();
+    }, 500); 
+});
     </script>
          
 </body>
